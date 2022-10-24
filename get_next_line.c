@@ -6,7 +6,7 @@
 /*   By: vgroux <vgroux@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 17:10:34 by vgroux            #+#    #+#             */
-/*   Updated: 2022/10/22 17:33:41 by vgroux           ###   ########.fr       */
+/*   Updated: 2022/10/24 16:01:11 by vgroux           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ char	*get_next_line(int fd)
 	char		*str;
 	char		*buff;
 
-	buff = BUFFER_SIZE;
+	buff = (char *)malloc(sizeof(char) * BUFFER_SIZE);
+
 
 	
 	return (str);
