@@ -6,7 +6,7 @@
 /*   By: vgroux <vgroux@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 17:11:18 by vgroux            #+#    #+#             */
-/*   Updated: 2022/10/25 14:15:35 by vgroux           ###   ########.fr       */
+/*   Updated: 2022/10/25 15:22:03 by vgroux           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,43 +24,73 @@ size_t	ft_strlen(char *str)
 	return (i);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_gnl_strchr(char *s, int c)
 {
 	int		i;
-	char	*ptr_temp;
 
 	i = 0;
-	ptr_temp = (char *)s;
-	while (ptr_temp[i] != (char)c)
+	if (!s)
+		return (NULL);
+	if (c == '\0')
+		return ((char *)&s[ft_strlen(s)]);
+	while (s[i])
 	{
-		if (ptr_temp[i] == '\0')
-			return (NULL);
+		if (s[i] == (char)c)
+			return ((char *)&s[i]);
 		i++;
 	}
-	return (&ptr_temp[i]);
+	return (NULL);
 }
 
-char	*ft_strjoin(const char *s1, const char *s2)
+char	*ft_gnl_strjoin(char *s1, char *s2)
 {
 	char	*str;
 	size_t	i;
 	size_t	j;
-	size_t	len_malloc;
 
-	len_malloc = ft_strlen((char *)s1) + ft_strlen((char *)s2) + 1;
-	str = (char *)malloc(len_malloc * sizeof(char));
+	if (!s1)
+	{
+		s1 = (char *)malloc(sizeof(char) * 1);
+		s1[0] = '\0';
+	}
+	if (!s1 || !s2)
+		return (NULL);
+	str = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
-	i = 0;
-	while (s1[i])
-	{
+	i = -1;
+	j = 0;
+	while (s1[++i])
 		str[i] = s1[i];
-		i++;
-	}
-	j = i;
-	i = 0;
-	while (s2[i])
-		str[j++] = s1[i++];
-	str[j] = '\0';
+	while (s2[j])
+		str[i++] = s2[j++];
+	str[i] = '\0';
+	free(s1);
 	return (str);
+}
+
+char	*ft_gnl_new_str(char *str)
+{
+	int		i;
+	int		j;
+	char	*new_str;
+
+	i = 0;
+	while (str[i] || str[i] != '\n')
+		i++;
+	if (!str[i])
+	{
+		free(str);
+		return (NULL);
+	}
+	new_str = (char *)malloc(sizeof(char) * (ft_strlen(str) - i + 1));
+	if (!new_str)
+		return (NULL);
+	j = 0;
+	i++;
+	while (str[i])
+		new_str[j++] = str[i++];
+	new_str[j] = '\0';
+	free(str);
+	return (new_str);
 }

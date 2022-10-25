@@ -6,7 +6,7 @@
 /*   By: vgroux <vgroux@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 17:10:34 by vgroux            #+#    #+#             */
-/*   Updated: 2022/10/25 14:10:48 by vgroux           ###   ########.fr       */
+/*   Updated: 2022/10/25 15:29:04 by vgroux           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,36 +15,37 @@
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*str;
+	static char	*rest_str;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	str = ft_gnl_read(fd, str);
-	if (!str)
+	rest_str = ft_gnl_read(fd, rest_str);
+	if (!rest_str)
 		return (NULL);
-	line = ft_gnl_get_line(str);
+	line = ft_gnl_get_line(rest_str);
+	rest_str = ft_gnl_new_str(rest_str);
 	return (line);
 }
 
 char	*ft_gnl_read(int fd, char *str)
 {
 	char	*buff;
-	int		bytes_readed;
+	ssize_t	bytes_readed;
 
 	buff = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buff)
 		return (NULL);
 	bytes_readed = 1;
-	while (bytes_readed != 0 || !(ft_strchr(str, '\n')))
+	while (bytes_readed != 0 && !(ft_gnl_strchr(str, '\n')))
 	{
 		bytes_readed = read(fd, buff, BUFFER_SIZE);
-		if (bytes_readed < 0)
+		if (bytes_readed == -1)
 		{
 			free(buff);
 			return (NULL);
 		}
 		buff[bytes_readed] = '\0';
-		str = ft_strjoin(str, buff);
+		str = ft_gnl_strjoin(str, buff);
 	}
 	free(buff);
 	return (str);
