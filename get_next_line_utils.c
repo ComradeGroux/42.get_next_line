@@ -6,7 +6,7 @@
 /*   By: vgroux <vgroux@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 17:11:18 by vgroux            #+#    #+#             */
-/*   Updated: 2022/10/25 14:08:42 by vgroux           ###   ########.fr       */
+/*   Updated: 2022/10/25 14:15:35 by vgroux           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,10 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	char	*str;
 	size_t	i;
 	size_t	j;
+	size_t	len_malloc;
 
-	str = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	len_malloc = ft_strlen((char *)s1) + ft_strlen((char *)s2) + 1;
+	str = (char *)malloc(len_malloc * sizeof(char));
 	if (!str)
 		return (NULL);
 	i = 0;
