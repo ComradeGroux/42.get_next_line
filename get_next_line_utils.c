@@ -6,7 +6,7 @@
 /*   By: vgroux <vgroux@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 17:51:12 by vgroux            #+#    #+#             */
-/*   Updated: 2022/10/25 18:05:52 by vgroux           ###   ########.fr       */
+/*   Updated: 2022/10/26 14:39:24 by vgroux           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,73 @@ void	*ft_calloc(size_t nb_elem, size_t size_elem)
 		i++;
 	}
 	return (ptr);
+}
+
+int	ft_gnl_strchr(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\n')
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+char	*ft_gnl_strjoin(char *line, char *buff)
+{
+	char	*str;
+	size_t	i;
+	size_t	j;
+	size_t	tlen;
+
+	tlen = ft_strlen(line) + ft_strlen(buff) + 1;
+	str = (char *)ft_calloc(tlen, sizeof(char));
+	if (!str)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (line[i])
+	{
+		str[i] = line[i];
+		i++;
+	}
+	while (buff[j])
+	{
+		str[i++] = buff[j++];
+	}
+	free(line);
+	str[i] = '\0';
+	return (str);
+}
+
+size_t	ft_strlen(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+char	*ft_strndup(char *buffer, size_t end)
+{
+	char	*str;
+	size_t	i;
+
+	str = (char *)ft_calloc(end, sizeof(char));
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (i <= end && buffer[i])
+	{
+		str[i] = buffer[i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
 }

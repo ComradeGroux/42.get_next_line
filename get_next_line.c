@@ -6,7 +6,7 @@
 /*   By: vgroux <vgroux@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 17:50:59 by vgroux            #+#    #+#             */
-/*   Updated: 2022/10/25 18:10:12 by vgroux           ###   ########.fr       */
+/*   Updated: 2022/10/26 14:52:37 by vgroux           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,61 @@ char	*ft_gnl_read(int fd, char *res)
 	char	*buffer;
 
 	if (!res)
-		res = (char *)ft_calloc(1, 1);
+		res = (char *)ft_calloc(1, sizeof(char));
 	buffer = (char *)ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (!res || !buffer)
 		return (NULL);
+	bytes_readed = 1;
+	while (bytes_readed > 0)
+	{
+		bytes_readed = read(fd, buffer, BUFFER_SIZE);
+		if (bytes_readed == -1)
+		{
+			free(buffer);
+			return (NULL);
+		}
+		buffer[bytes_readed] = 0;
+		res = ft_gnl_strjoin(res, buffer);
+		if (ft_gnl_strchr(buffer) != -1)
+			break ;
+	}
+	free(buffer);
+	return (res);
 }
 
 char	*ft_gnl_get_line(char *buffer)
 {
+	int		i;
+	char	*str;
 
+	if (!buffer[0])
+		return (NULL);
+	i = ft_gnl_strchr(buffer);
+	if (i == -1)
+		i = ft_strlen(buffer);
+	str = ft_strndup(buffer, i);
+	if (!str)
+		return (NULL);
+	return (str);
 }
 
 char	*ft_gnl_remove_old_line(char *buffer)
 {
+	char	*str;
+	int		i;
+	int		j;
 
+	i = ft_gnl_strchr(buffer);
+	if (i == -1)
+		return (buffer);
+	str = (char *)ft_calloc(ft_strlen(buffer) - i + 1, sizeof(char));
+	if (!str)
+		return (NULL);
+	j = 0;
+	while (buffer[++i])
+	{
+		str[j++] = buffer[i];
+	}
+	free(buffer);
+	return (str);
 }
