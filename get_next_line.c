@@ -6,7 +6,7 @@
 /*   By: vgroux <vgroux@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 17:50:59 by vgroux            #+#    #+#             */
-/*   Updated: 2022/10/26 14:52:37 by vgroux           ###   ########.fr       */
+/*   Updated: 2022/10/26 15:28:47 by vgroux           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,11 @@ char	*ft_gnl_remove_old_line(char *buffer)
 	int		i;
 	int		j;
 
+	if (!buffer)
+	{
+		free(buffer);
+		return (NULL);
+	}
 	i = ft_gnl_strchr(buffer);
 	if (i == -1)
 		return (buffer);
@@ -85,9 +90,8 @@ char	*ft_gnl_remove_old_line(char *buffer)
 		return (NULL);
 	j = 0;
 	while (buffer[++i])
-	{
 		str[j++] = buffer[i];
-	}
+	str[j] = '\0';
 	free(buffer);
 	return (str);
 }
