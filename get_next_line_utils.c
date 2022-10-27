@@ -6,7 +6,7 @@
 /*   By: vgroux <vgroux@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 17:51:12 by vgroux            #+#    #+#             */
-/*   Updated: 2022/10/26 16:18:03 by vgroux           ###   ########.fr       */
+/*   Updated: 2022/10/27 12:41:48 by vgroux           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ char	*ft_gnl_strjoin(char *line, char *buff)
 	tlen = ft_strlen(line) + ft_strlen(buff) + 1;
 	str = (char *)ft_calloc(tlen, sizeof(char));
 	if (!str)
+		free(line);
+	if (!str)
 		return (NULL);
 	i = 0;
 	j = 0;
@@ -87,7 +89,7 @@ char	*ft_strndup(char *buffer, size_t end)
 	char	*str;
 	size_t	i;
 
-	str = (char *)ft_calloc(end, sizeof(char));
+	str = (char *)ft_calloc(end + 2, sizeof(char));
 	if (!str)
 		return (NULL);
 	i = 0;
