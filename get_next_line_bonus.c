@@ -6,12 +6,11 @@
 /*   By: vgroux <vgroux@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 17:50:59 by vgroux            #+#    #+#             */
-/*   Updated: 2022/10/28 14:13:46 by vgroux           ###   ########.fr       */
+/*   Updated: 2022/10/28 14:22:58 by vgroux           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <stdio.h>
+#include "get_next_line_bonus.h"
 
 char	*get_next_line(int fd)
 {

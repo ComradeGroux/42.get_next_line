@@ -6,11 +6,11 @@
 /*   By: vgroux <vgroux@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 17:51:12 by vgroux            #+#    #+#             */
-/*   Updated: 2022/10/28 14:04:55 by vgroux           ###   ########.fr       */
+/*   Updated: 2022/10/28 14:22:22 by vgroux           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void	*ft_calloc(size_t nb_elem, size_t size_elem)
 {
