@@ -6,7 +6,7 @@
 /*   By: vgroux <vgroux@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 17:49:01 by vgroux            #+#    #+#             */
-/*   Updated: 2022/10/27 15:27:04 by vgroux           ###   ########.fr       */
+/*   Updated: 2022/10/28 13:02:52 by vgroux           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ int		ft_gnl_strchr(char *str);
 char	*ft_gnl_strjoin(char *line, char *buff);
 size_t	ft_strlen(char *str);
 char	*ft_strndup(char *str, size_t end);
+char	*ft_gnl_remove_free(char *buffer);
 
 #endif

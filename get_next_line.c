@@ -6,7 +6,7 @@
 /*   By: vgroux <vgroux@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 17:50:59 by vgroux            #+#    #+#             */
-/*   Updated: 2022/10/27 16:51:56 by vgroux           ###   ########.fr       */
+/*   Updated: 2022/10/28 13:39:15 by vgroux           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*get_next_line(int fd)
 	static char	*buffer;
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buffer = ft_gnl_read(fd, buffer);
 	if (!buffer)
@@ -45,6 +45,7 @@ char	*ft_gnl_read(int fd, char *res)
 		if (bytes_readed == -1)
 		{
 			free(buffer);
+			free(res);
 			return (NULL);
 		}
 		buffer[bytes_readed] = 0;
@@ -79,26 +80,23 @@ char	*ft_gnl_remove_old_line(char *buffer)
 	int		j;
 
 	if (buffer == NULL)
-	{
-		free(buffer);
-		return (NULL);
-	}
+		return (ft_gnl_remove_free(buffer));
 	i = ft_gnl_strchr(buffer);
 	if (i == -1)
-	{
-		free(buffer);
-		return (NULL);
-	}
+		return (ft_gnl_remove_free(buffer));
 	str = (char *)ft_calloc(ft_strlen(buffer) - i + 1, sizeof(char));
 	if (!str)
-	{
-		free(buffer);
-		return (NULL);
-	}
+		return (ft_gnl_remove_free(buffer));
 	j = 0;
 	while (buffer[++i])
 		str[j++] = buffer[i];
 	str[j] = '\0';
 	free(buffer);
 	return (str);
+}
+
+char	*ft_gnl_remove_free(char *buffer)
+{
+	free(buffer);
+	return (NULL);
 }
